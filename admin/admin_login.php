@@ -81,7 +81,6 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
-        <p class="text-center mt-3">Don't have an account? <a href="admin_register.php">Register here</a></p>
     </div>
 
     <!-- Bootstrap JS -->

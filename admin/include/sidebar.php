@@ -1,6 +1,6 @@
 <div class="sidebar">
         <div class="logo">
-            <img src="img/logo.png" alt="logo">
+            <a href="index.php"><img src="img/logo.png" alt="logo"></a>
         </div>
         <a href="index.php" class="<?php echo ($page == "index" ? "active" : "")?>"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
         <a href="#"><i class="fas fa-users me-2"></i> Users</a>

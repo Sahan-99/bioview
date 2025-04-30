@@ -140,6 +140,9 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <!-- Header -->
+        <?php include 'include/header.php'; ?>
+        
         <div class="header mb-4">
             <h1>Admin Profile</h1>
             <p>Manage your profile details below.</p>
