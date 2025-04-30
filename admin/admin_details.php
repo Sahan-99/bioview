@@ -4,70 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Details</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f7fa;
-        }
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            position: fixed;
-            background-color: #fff;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            padding-top: 20px;
-        }
-        .sidebar a {
-            color: #6c757d;
-            padding: 15px 20px;
-            display: block;
-            text-decoration: none;
-        }
-        .sidebar a.active {
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            margin: 0 10px;
-        }
-        .sidebar a:hover {
-            color: #007bff;
-        }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        .header {
-            background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .header1 {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .table-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .table img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        .table th, .table td {
-            vertical-align: middle;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin_details.css">
 
     <?php $page = "admin_details"; ?>
 </head>

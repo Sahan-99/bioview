@@ -4,99 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Profile</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f7fa;
-        }
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            position: fixed;
-            background-color: #fff;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            padding-top: 20px;
-        }
-        .sidebar a {
-            color: #6c757d;
-            padding: 15px 20px;
-            display: block;
-            text-decoration: none;
-        }
-        .sidebar a.active {
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            margin: 0 10px;
-        }
-        .sidebar a:hover {
-            color: #007bff;
-        }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        .header {
-            background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .profile-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-        .form-control {
-            border-radius: 10px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            transition: border-color 0.3s ease;
-        }
-        .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            border-radius: 10px;
-            padding: 12px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .form-label {
-            font-weight: 500;
-            color: #555;
-        }
-        .alert {
-            border-radius: 10px;
-        }
-        .custom-file-input {
-            border-radius: 10px;
-            padding: 12px;
-            border: 1px solid #ddd;
-        }
-        .custom-file-input:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin_profile.css">
+
 </head>
 <body>
     <?php
@@ -220,21 +135,7 @@
     ?>
 
     <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="p-3">
-            <h4 class="text-primary"><i class="fas fa-cube"></i> Admin Panel</h4>
-        </div>
-        <a href="index.php"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-        <h6 class="px-3 pt-3 text-muted">DATABASE TABLES</h6>
-        <a href="#"><i class="fas fa-users me-2"></i> Users</a>
-        <a href="#"><i class="fas fa-cube me-2"></i> 3D Models</a>
-        <a href="#"><i class="fas fa-image me-2"></i> Scanned Images</a>
-        <a href="#"><i class="fas fa-music me-2"></i> Audio</a>
-        <a href="#"><i class="fas fa-question-circle me-2"></i> Quiz</a>
-        <a href="#"><i class="fas fa-history me-2"></i> Quiz Attempts</a>
-        <a href="#"><i class="fas fa-file-alt me-2"></i> Reports</a>
-        <a href="admin_details.php"><i class="fas fa-user-shield me-2"></i> Admins</a>
-    </div>
+    <?php include 'include/sidebar.php'; ?>
 
     <!-- Main Content -->
     <div class="main-content">
