@@ -113,7 +113,7 @@
                     <div class="card-body">
                         <i class="fas fa-music card-icon-bg audio-icon"></i>
                         <h3 class="audio-icon"><?php echo $audio_count; ?></h3>
-                        <h5>AUDIO</h>
+                        <h5>AUDIOS</h>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                     <div class="card-body">
                         <i class="fas fa-question-circle card-icon-bg quiz-icon"></i>
                         <h3 class="quiz-icon"><?php echo $quiz_count; ?></h3>
-                        <h5>QUIZ</>
+                        <h5>QUIZZES</>
                     </div>
                 </div>
             </div>

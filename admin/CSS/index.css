@@ -56,26 +56,26 @@
 }
 /* Unique colors for each card's icon and number */
 .users-icon, .users-icon + h3 {
-    color: #ff4d4f; /* Red for Users */
+    color: #ff4d4f; 
 }
 .models-icon, .models-icon + h3 {
-    color: #1890ff; /* Blue for 3D Models */
+    color: #0082fc; 
 }
 .images-icon, .images-icon + h3 {
-    color: #52c41a; /* Green for Scanned Images */
+    color: #52c41a; 
 }
 .audio-icon, .audio-icon + h3 {
-    color: #fa8c16; /* Orange for Audio */
+    color: #fa8c16; 
 }
 .quiz-icon, .quiz-icon + h3 {
-    color: #eb2f96; /* Pink for Quiz */
+    color: #13c2c2; 
 }
 .attempts-icon, .attempts-icon + h3 {
-    color: #13c2c2; /* Cyan for Quiz Attempts */
+    color: #eb2f96; 
 }
 .reports-icon, .reports-icon + h3 {
-    color: #722ed1; /* Purple for Reports */
+    color: #722ed1; 
 }
 .admins-icon, .admins-icon + h3 {
-    color: #fadb14; /* Yellow for Admins */
+    color: #fadb14; 
 }
