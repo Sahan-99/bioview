@@ -60,19 +60,6 @@
     $report_count = $conn->query("SELECT COUNT(*) FROM report")->fetch_row()[0];
     $admin_count = $conn->query("SELECT COUNT(*) FROM admin")->fetch_row()[0];
 
-    // Determine best match (highest count)
-    $counts = [
-        'Users' => $users_count,
-        '3D Models' => $models_count,
-        'Scanned Images' => $images_count,
-        'Audio' => $audio_count,
-        'Quiz' => $quiz_count,
-        'Quiz Attempts' => $attempt_count,
-        'Reports' => $report_count,
-        'Admins' => $admin_count
-    ];
-    $best_match = array_keys($counts, max($counts))[0];
-
     $conn->close();
     ?>
 
