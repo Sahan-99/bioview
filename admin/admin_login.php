@@ -11,66 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #007bff, #00c6ff);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
-        .login-container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        .login-container h2 {
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .form-control {
-            border-radius: 10px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            transition: border-color 0.3s ease;
-        }
-        .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            border-radius: 10px;
-            padding: 12px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .form-label {
-            font-weight: 500;
-            color: #555;
-        }
-        .alert {
-            border-radius: 10px;
-        }
-        .text-center a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .text-center a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="css/admin_login.css">
+
 </head>
 <body>
     <?php
