@@ -1,9 +1,8 @@
 <div class="sidebar">
-        <div class="p-3">
-            <h4 class="text-primary"><i class="fas fa-cube"></i> Admin Panel</h4>
+        <div class="logo">
+            <img src="img/logo.png" alt="logo">
         </div>
         <a href="index.php" class="<?php echo ($page == "index" ? "active" : "")?>"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-        
         <a href="#"><i class="fas fa-users me-2"></i> Users</a>
         <a href="#"><i class="fas fa-cube me-2"></i> 3D Models</a>
         <a href="#"><i class="fas fa-image me-2"></i> Scanned Images</a>

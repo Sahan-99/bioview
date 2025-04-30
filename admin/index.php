@@ -8,85 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f7fa;
-        }
-        .header {
-            background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header .date-time {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.3rem;
-            color: #fff;
-            font-weight: 300;
-        }
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            position: fixed;
-            background-color: #fff;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            padding-top: 20px;
-        }
-        .sidebar a {
-            color: #6c757d;
-            padding: 15px 20px;
-            display: block;
-            text-decoration: none;
-        }
-        .sidebar a.active {
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            margin: 0 10px;
-        }
-        .sidebar a:hover {
-            color: #007bff;
-        }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        .header1 {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .card-body h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .best-match {
-            color: #ffd700;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-        .card-icon {
-            font-size: 2rem;
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+    
 
     <?php $page = "index"; ?>
 </head>
