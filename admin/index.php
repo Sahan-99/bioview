@@ -96,97 +96,73 @@
         <div class="row">
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <?php if ($best_match === 'Users'): ?>
-                            <i class="fas fa-star best-match"></i>
-                        <?php endif; ?>
-                        <i class="fas fa-users card-icon"></i>
-                        <p class="text-muted">USERS</p>
-                        <h3><?php echo $users_count; ?></h3>
+                    <div class="card-body">
+                        <i class="fas fa-users card-icon-bg users-icon"></i>
+                        <h3 class="users-icon"><?php echo $users_count; ?></h3>
+                        <h5>USERS</h5>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <?php if ($best_match === '3D Models'): ?>
-                            <i class="fas fa-star best-match"></i>
-                        <?php endif; ?>
-                        <i class="fas fa-cube card-icon"></i>
-                        <p class="text-muted">3D MODELS</p>
-                        <h3><?php echo $models_count; ?></h3>
+                    <div class="card-body">
+                        <i class="fas fa-cube card-icon-bg models-icon"></i>
+                        <h3 class="models-icon"><?php echo $models_count; ?></h3>
+                        <h5>3D MODELS</h5>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <?php if ($best_match === 'Scanned Images'): ?>
-                            <i class="fas fa-star best-match"></i>
-                        <?php endif; ?>
-                        <i class="fas fa-image card-icon"></i>
-                        <p class="text-muted">SCANNED IMAGES</p>
-                        <h3><?php echo $images_count; ?></h3>
+                    <div class="card-body">
+                        <i class="fas fa-image card-icon-bg images-icon"></i>
+                        <h3 class="images-icon"><?php echo $images_count; ?></h3>
+                        <h5>SCANNED IMAGES</h5>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <?php if ($best_match === 'Audio'): ?>
-                            <i class="fas fa-star best-match"></i>
-                        <?php endif; ?>
-                        <i class="fas fa-music card-icon"></i>
-                        <p class="text-muted">AUDIO</p>
-                        <h3><?php echo $audio_count; ?></h3>
+                    <div class="card-body">
+                        <i class="fas fa-music card-icon-bg audio-icon"></i>
+                        <h3 class="audio-icon"><?php echo $audio_count; ?></h3>
+                        <h5>AUDIO</h>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <?php if ($best_match === 'Quiz'): ?>
-                            <i class="fas fa-star best-match"></i>
-                        <?php endif; ?>
-                        <i class="fas fa-question-circle card-icon"></i>
-                        <p class="text-muted">QUIZ</p>
-                        <h3><?php echo $quiz_count; ?></h3>
+                    <div class="card-body">
+                        <i class="fas fa-question-circle card-icon-bg quiz-icon"></i>
+                        <h3 class="quiz-icon"><?php echo $quiz_count; ?></h3>
+                        <h5>QUIZ</>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <?php if ($best_match === 'Quiz Attempts'): ?>
-                            <i class="fas fa-star best-match"></i>
-                        <?php endif; ?>
-                        <i class="fas fa-history card-icon"></i>
-                        <p class="text-muted">QUIZ ATTEMPTS</p>
-                        <h3><?php echo $attempt_count; ?></h3>
+                    <div class="card-body">
+                        <i class="fas fa-history card-icon-bg attempts-icon"></i>
+                        <h3 class="attempts-icon"><?php echo $attempt_count; ?></h3>
+                        <h5>QUIZ ATTEMPTS</>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <?php if ($best_match === 'Reports'): ?>
-                            <i class="fas fa-star best-match"></i>
-                        <?php endif; ?>
-                        <i class="fas fa-file-alt card-icon"></i>
-                        <p class="text-muted">REPORTS</p>
-                        <h3><?php echo $report_count; ?></h3>
+                    <div class="card-body">
+                        <i class="fas fa-file-alt card-icon-bg reports-icon"></i>
+                        <h3 class="reports-icon"><?php echo $report_count; ?></h3>
+                        <h5>REPORTS</h5>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <?php if ($best_match === 'Admins'): ?>
-                            <i class="fas fa-star best-match"></i>
-                        <?php endif; ?>
-                        <i class="fas fa-user-shield card-icon"></i>
-                        <p class="text-muted">ADMINS</p>
-                        <h3><?php echo $admin_count; ?></h3>
+                    <div class="card-body">
+                        <i class="fas fa-user-shield card-icon-bg admins-icon"></i>
+                        <h3 class="admins-icon"><?php echo $admin_count; ?></h3>
+                        <h5>ADMINS</h5>
                     </div>
                 </div>
             </div>
