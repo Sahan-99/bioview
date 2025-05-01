@@ -73,8 +73,7 @@
 
         <div class="header mb-4">
             <div>
-                <h2 id="greeting">Good Morning <?php echo htmlspecialchars($firstname); ?></h2>
-                <p>Welcome back!</p>
+                <h2 id="greeting">Good Morning <?php echo htmlspecialchars($firstname); ?>!</h2>
             </div>
         </div>
 
@@ -177,7 +176,7 @@
     // Function to update the greeting and date/time
     function updateHeader() {
         const greeting = getGreeting();
-        document.getElementById('greeting').textContent = `${greeting} ${adminName}`;
+        document.getElementById('greeting').textContent = `${greeting} ${adminName}!`;
         updateDateTime();
     }
 

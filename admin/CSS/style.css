@@ -7,6 +7,10 @@ body {
     color: #fff;
     padding: 20px;
     border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .sidebar {
     height: 100vh; /* Full viewport height */
