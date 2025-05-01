@@ -75,6 +75,7 @@
             <div>
                 <h2 id="greeting">Good Morning <?php echo htmlspecialchars($firstname); ?>!</h2>
             </div>
+            <div class="date-time" id="date-time"></div>
         </div>
 
         <!-- Database Table Counts -->
@@ -171,6 +172,23 @@
         } else {
             return "Good Evening";
         }
+    }
+
+    // Function to format and display the current date and time in the user's local timezone
+    function updateDateTime() {
+        const now = new Date();
+        const options = {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        };
+        // Format the date and time: "30 Apr 2025, 14:30"
+        const formattedDateTime = now.toLocaleString('en-GB', options)
+            .replace(/(\d{2}) (\w{3}) (\d{4}), (\d{2}):(\d{2})/, '$1 $2 $3, $4:$5');
+        document.getElementById('date-time').textContent = formattedDateTime;
     }
 
     // Function to update the greeting and date/time
