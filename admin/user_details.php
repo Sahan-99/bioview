@@ -9,7 +9,7 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     
 </head>
 <body>
@@ -52,7 +52,7 @@
     <!-- Include Sidebar -->
     <?php
     $page = 'users'; 
-    include 'sidebar.php';
+    include 'include/sidebar.php';
     ?>
 
     <!-- Main Content -->
@@ -61,7 +61,7 @@
         <?php include 'include/header.php'; ?>
 
         <div class="header mb-4">
-            <h1>User Details</h1>
+            <h2>User Details</h2>
             <p>List of all users in the system.</p>
         </div>
 

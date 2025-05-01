@@ -76,7 +76,6 @@
                 <h2 id="greeting">Good Morning <?php echo htmlspecialchars($firstname); ?></h2>
                 <p>Welcome back!</p>
             </div>
-            <div class="date-time" id="date-time"></div>
         </div>
 
         <!-- Database Table Counts -->
@@ -113,7 +112,7 @@
                     <div class="card-body">
                         <i class="fas fa-music card-icon-bg audio-icon"></i>
                         <h3 class="audio-icon"><?php echo $audio_count; ?></h3>
-                        <h5>AUDIOS</h>
+                        <h5>AUDIOS</h5>
                     </div>
                 </div>
             </div>
@@ -122,7 +121,7 @@
                     <div class="card-body">
                         <i class="fas fa-question-circle card-icon-bg quiz-icon"></i>
                         <h3 class="quiz-icon"><?php echo $quiz_count; ?></h3>
-                        <h5>QUIZZES</>
+                        <h5>QUIZZES</h5>
                     </div>
                 </div>
             </div>
@@ -131,7 +130,7 @@
                     <div class="card-body">
                         <i class="fas fa-history card-icon-bg attempts-icon"></i>
                         <h3 class="attempts-icon"><?php echo $attempt_count; ?></h3>
-                        <h5>QUIZ ATTEMPTS</>
+                        <h5>QUIZ ATTEMPTS</h5>
                     </div>
                 </div>
             </div>
@@ -173,23 +172,6 @@
         } else {
             return "Good Evening";
         }
-    }
-
-    // Function to format and display the current date and time in the user's local timezone
-    function updateDateTime() {
-        const now = new Date();
-        const options = {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        };
-        // Format the date and time: "30 Apr 2025, 14:30"
-        const formattedDateTime = now.toLocaleString('en-GB', options)
-            .replace(/(\d{2}) (\w{3}) (\d{4}), (\d{2}):(\d{2})/, '$1 $2 $3, $4:$5');
-        document.getElementById('date-time').textContent = formattedDateTime;
     }
 
     // Function to update the greeting and date/time

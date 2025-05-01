@@ -144,7 +144,7 @@
         <?php include 'include/header.php'; ?>
         
         <div class="header mb-4">
-            <h1>Admin Profile</h1>
+            <h2>Admin Profile</h>
             <p>Manage your profile details below.</p>
         </div>
 
