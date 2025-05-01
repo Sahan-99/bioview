@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Details</title>
-    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <title>User Details</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
     
-    <link rel="stylesheet" href="css/style.css">
-
-    <?php $page = "admin_details"; ?>
 </head>
 <body>
     <?php
-    include 'dbconnect.php'; // Include the database connection
+    include 'dbconnect.php';
     session_start();
 
     // Check if admin is logged in
@@ -45,49 +43,48 @@
     }
     $stmt->close();
 
-    // Fetch all admins
-    $query = "SELECT admin_id, firstname, lastname, email, profile_picture FROM admin";
+    // Fetch all users
+    $query = "SELECT user_id, first_name, last_name, email FROM users";
     $result = $conn->query($query);
     $conn->close();
     ?>
 
-    <!-- Sidebar -->
-    <?php include 'include/sidebar.php'; ?>
+    <!-- Include Sidebar -->
+    <?php
+    $page = 'users'; 
+    include 'sidebar.php';
+    ?>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content" id="main-content">
         <!-- Header -->
         <?php include 'include/header.php'; ?>
 
         <div class="header mb-4">
-            <h1>Admin Details</h1>
-            <p>List of all administrators in the system.</p>
+            <h1>User Details</h1>
+            <p>List of all users in the system.</p>
         </div>
 
-        <!-- Admin List Table -->
+        <!-- User List Table -->
         <div class="table-container">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Full Name</th>
                         <th>Email</th>
-                        <th>Profile Picture</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if ($result->num_rows > 0): ?>
                         <?php while ($row = $result->fetch_assoc()): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($row['firstname'] . ' ' . $row['lastname']); ?></td>
+                                <td><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['email']); ?></td>
-                                <td>
-                                    <img src="<?php echo htmlspecialchars($row['profile_picture'] ?: 'https://via.placeholder.com/50'); ?>" alt="Profile Picture">
-                                </td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4" class="text-center">No admins found.</td>
+                            <td colspan="3" class="text-center">No users found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
