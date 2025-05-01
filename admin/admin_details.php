@@ -12,7 +12,7 @@
     
     <link rel="stylesheet" href="css/style.css">
 
-    <?php $page = "admin_details"; ?>
+    <?php $page = "admins"; ?>
 </head>
 <body>
     <?php
