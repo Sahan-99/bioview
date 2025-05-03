@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php include 'include/header.php'; ?>
 
         <div class="header mb-4">
-            <h2>Add Image</h2>
+            <h2>Add Scanned Image</h2>
             <div>Upload a new scanned image.</div>
         </div>
 
