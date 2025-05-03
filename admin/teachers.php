@@ -29,7 +29,7 @@
 
     <!-- Include Sidebar -->
     <?php
-    $page = 'students'; 
+    $page = 'teachers'; 
     include 'include/sidebar.php';
     ?>
 

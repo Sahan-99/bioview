@@ -27,15 +27,6 @@
     font-weight: bold;
     margin: 5px 0;
 }
-.card-body a {
-    font-size: 0.85rem;
-    color: #007bff;
-    text-decoration: none;
-    cursor: pointer;
-}
-.card-body a:hover {
-    text-decoration: underline;
-}
 .card-icon-bg {
     position: absolute;
     font-size: 8rem; /* Large size for background icon */
@@ -46,27 +37,31 @@
     z-index: 0; /* Behind the content */
 }
 /* Unique colors for each card's icon and number */
-.users-icon, .users-icon + h3 {
-    color: #ff2125; 
+.students-icon, .students-icon + h3 {
+    color: #e63946; 
 }
-.models-icon, .models-icon + h3 {
-    color: #0082fc; 
-}
-.images-icon, .images-icon + h3 {
-    color: #52c41a; 
-}
-.audio-icon, .audio-icon + h3 {
-    color: #ff8d14; 
-}
-.quiz-icon, .quiz-icon + h3 {
-    color: #13c2c2; 
-}
-.attempts-icon, .attempts-icon + h3 {
-    color: #eb2f96; 
-}
-.reports-icon, .reports-icon + h3 {
-    color: #722ed1; 
+.teachers-icon, .teachers-icon + h3 {
+    color: #8338ec; 
 }
 .admins-icon, .admins-icon + h3 {
-    color: #ffdd00; 
+    color: #f4a261; 
 }
+.models-icon, .models-icon + h3 {
+    color: #219ebc; 
+}
+.images-icon, .images-icon + h3 {
+    color: #2a9d8f; 
+}
+.audio-icon, .audio-icon + h3 {
+    color: #f4a261; 
+}
+.quiz-icon, .quiz-icon + h3 {
+    color: #06d6a0; 
+}
+.attempts-icon, .attempts-icon + h3 {
+    color: #ef476f; 
+}
+.reports-icon, .reports-icon + h3 {
+    color: #118ab2; 
+}
+

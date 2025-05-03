@@ -6,15 +6,15 @@ include 'dbconnect.php';
 include 'include/check_admin.php';
 
 // Fetch counts from all tables
-$users_count = $conn->query("SELECT COUNT(*) FROM users")->fetch_row()[0];
+$student_count = $conn->query("SELECT COUNT(*) FROM users WHERE type = 'student'")->fetch_row()[0];
+$teacher_count = $conn->query("SELECT COUNT(*) FROM users WHERE type = 'teacher'")->fetch_row()[0];
+$admin_count = $conn->query("SELECT COUNT(*) FROM users WHERE type = 'admin'")->fetch_row()[0];
 $models_count = $conn->query("SELECT COUNT(*) FROM 3d_models")->fetch_row()[0];
 $images_count = $conn->query("SELECT COUNT(*) FROM scanned_images")->fetch_row()[0];
 $audio_count = $conn->query("SELECT COUNT(*) FROM audio")->fetch_row()[0];
 $quiz_count = $conn->query("SELECT COUNT(*) FROM quiz")->fetch_row()[0];
 $attempt_count = $conn->query("SELECT COUNT(*) FROM quiz_attempt")->fetch_row()[0];
 $report_count = $conn->query("SELECT COUNT(*) FROM report")->fetch_row()[0];
-// Updated admin count to reflect admins in users table with type 'admin'
-$admin_count = $conn->query("SELECT COUNT(*) FROM users WHERE type = 'admin'")->fetch_row()[0];
 
 $conn->close();
 ?>
@@ -55,9 +55,27 @@ $conn->close();
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <i class="fas fa-users card-icon-bg users-icon"></i>
-                        <h3 class="users-icon"><?php echo $users_count; ?></h3>
-                        <h5>USERS</h5>
+                        <i class="fas fa-user-graduate card-icon-bg students-icon"></i>
+                        <h3 class="students-icon"><?php echo $student_count; ?></h3>
+                        <h5>STUDENTS</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <i class="fas fa-chalkboard-teacher card-icon-bg teachers-icon"></i>
+                        <h3 class="teachers-icon"><?php echo $teacher_count; ?></h3>
+                        <h5>TEACHERS</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <i class="fas fa-user-shield card-icon-bg admins-icon"></i>
+                        <h3 class="admins-icon"><?php echo $admin_count; ?></h3>
+                        <h5>ADMINS</h5>
                     </div>
                 </div>
             </div>
@@ -112,15 +130,6 @@ $conn->close();
                         <i class="fas fa-file-alt card-icon-bg reports-icon"></i>
                         <h3 class="reports-icon"><?php echo $report_count; ?></h3>
                         <h5>REPORTS</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <i class="fas fa-user-shield card-icon-bg admins-icon"></i>
-                        <h3 class="admins-icon"><?php echo $admin_count; ?></h3>
-                        <h5>ADMINS</h5>
                     </div>
                 </div>
             </div>
