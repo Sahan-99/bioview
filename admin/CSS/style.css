@@ -50,7 +50,8 @@ body {
 .sidebar a {
     color: #6c757d;
     padding: 15px 20px;
-    display: block;
+    display: flex;
+    align-items: center;
     text-decoration: none;
     font-size: 15px;
     pointer-events: auto;
@@ -157,6 +158,35 @@ body {
 
 .close-sidebar:hover {
     color: #007bff;
+}
+
+a.submenu {
+    padding: 10px 20px 10px 40px;
+    font-size: 14px;
+    color: #6c757d;
+    margin-left: 5px;
+}
+
+a.submenu.active {
+    color: #007bff;
+    background-color: #fff;
+    margin-left: 5px;
+}
+
+.submenu:hover {
+    color: #007bff;
+}
+
+.collapse.show {
+    display: block;
+}
+
+.fa-chevron-down {
+    transition: transform 0.3s ease;
+}
+
+a[aria-expanded="true"] .fa-chevron-down {
+    transform: rotate(180deg);
 }
 
 @media (max-width: 768px) {

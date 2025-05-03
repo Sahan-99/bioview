@@ -1,49 +1,23 @@
 <?php
-    session_start();
-    include 'dbconnect.php'; 
+session_start();
+include 'dbconnect.php';
 
+// Check if admin is logged in
+include 'include/check_admin.php';
 
-    if (!isset($_SESSION['admin_id'])) {
-        header("Location: admin_login.php");
-        exit();
-    }
+// Fetch counts from all tables
+$users_count = $conn->query("SELECT COUNT(*) FROM users")->fetch_row()[0];
+$models_count = $conn->query("SELECT COUNT(*) FROM 3d_models")->fetch_row()[0];
+$images_count = $conn->query("SELECT COUNT(*) FROM scanned_images")->fetch_row()[0];
+$audio_count = $conn->query("SELECT COUNT(*) FROM audio")->fetch_row()[0];
+$quiz_count = $conn->query("SELECT COUNT(*) FROM quiz")->fetch_row()[0];
+$attempt_count = $conn->query("SELECT COUNT(*) FROM quiz_attempt")->fetch_row()[0];
+$report_count = $conn->query("SELECT COUNT(*) FROM report")->fetch_row()[0];
+// Updated admin count to reflect admins in users table with type 'admin'
+$admin_count = $conn->query("SELECT COUNT(*) FROM users WHERE type = 'admin'")->fetch_row()[0];
 
-    // Get the logged-in admin's ID from the session
-    $admin_id = $_SESSION['admin_id'];
-
-    // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT firstname, lastname, profile_picture FROM admin WHERE admin_id = ?");
-    $stmt->bind_param("i", $admin_id);
-    $stmt->execute();
-    $admin_result = $stmt->get_result();
-
-    // Check if the query returned a result
-    if ($admin_result->num_rows > 0) {
-        $admin_data = $admin_result->fetch_assoc();
-        $firstname = $admin_data['firstname'] ?? 'Admin';
-        $lastname = $admin_data['lastname'] ?? '';
-        $profile_picture = $admin_data['profile_picture'] ?? 'https://via.placeholder.com/40';
-    } else {
-        // Handle case where admin is not found (e.g., invalid admin_id)
-        $firstname = 'Admin';
-        $lastname = '';
-        $profile_picture = 'https://via.placeholder.com/40';
-    }
-
-    $stmt->close();
-
-    // Fetch counts from all tables
-    $users_count = $conn->query("SELECT COUNT(*) FROM users")->fetch_row()[0];
-    $models_count = $conn->query("SELECT COUNT(*) FROM 3d_models")->fetch_row()[0];
-    $images_count = $conn->query("SELECT COUNT(*) FROM scanned_images")->fetch_row()[0];
-    $audio_count = $conn->query("SELECT COUNT(*) FROM audio")->fetch_row()[0];
-    $quiz_count = $conn->query("SELECT COUNT(*) FROM quiz")->fetch_row()[0];
-    $attempt_count = $conn->query("SELECT COUNT(*) FROM quiz_attempt")->fetch_row()[0];
-    $report_count = $conn->query("SELECT COUNT(*) FROM report")->fetch_row()[0];
-    $admin_count = $conn->query("SELECT COUNT(*) FROM admin")->fetch_row()[0];
-
-    $conn->close();
-    ?>
+$conn->close();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,14 +30,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
-    
     <?php $page = "index"; ?>
 </head>
 <body>
-
     <!-- Sidebar -->
     <?php include 'include/sidebar.php'; ?>
 
@@ -204,7 +175,6 @@
     updateHeader();
     // Update every minute to keep the time current and adjust greeting if needed
     setInterval(updateHeader, 60000);
-
     </script>
 </body>
 </html>

@@ -1,122 +1,121 @@
 <?php
-    session_start();
-    include 'dbconnect.php'; // Include the database connection
+session_start();
+include 'dbconnect.php';
 
-    // Check if admin is logged in
-    if (!isset($_SESSION['admin_id'])) {
-        header("Location: admin_login.php");
-        exit();
-    }
+// Check if admin is logged in
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: admin_login.php");
+    exit();
+}
 
-    $admin_id = $_SESSION['admin_id'];
-    $error = '';
-    $success = '';
+$admin_id = $_SESSION['admin_id'];
+$error = '';
+$success = '';
 
-    // Fetch admin details
-    $stmt = $conn->prepare("SELECT firstname, lastname, email, profile_picture FROM admin WHERE admin_id = ?");
-    $stmt->bind_param("i", $admin_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+// Fetch admin details
+$stmt = $conn->prepare("SELECT first_name, last_name, email, profile_picture FROM users WHERE user_id = ? AND type = 'admin'");
+$stmt->bind_param("i", $admin_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $admin = $result->fetch_assoc();
-        $firstname = $admin['firstname'];
-        $lastname = $admin['lastname'];
-        $email = $admin['email'];
-        $profile_picture = $admin['profile_picture'] ?: 'https://via.placeholder.com/150';
+if ($result->num_rows > 0) {
+    $admin = $result->fetch_assoc();
+    $firstname = $admin['first_name'];
+    $lastname = $admin['last_name'];
+    $email = $admin['email'];
+    $profile_picture = $admin['profile_picture'] ?: 'https://via.placeholder.com/150';
+} else {
+    $error = "Admin not found.";
+    $firstname = '';
+    $lastname = '';
+    $email = '';
+    $profile_picture = 'https://via.placeholder.com/150';
+}
+$stmt->close();
+
+// Handle profile update
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $new_firstname = trim($_POST['first_name']);
+    $new_lastname = trim($_POST['last_name']);
+    $new_email = trim($_POST['email']);
+    $new_password = trim($_POST['password']);
+    $profile_picture_path = $admin['profile_picture'] ?: '';
+
+    // Validate inputs
+    if (empty($new_firstname) || empty($new_lastname) || empty($new_email)) {
+        $error = "First name, last name, and email are required.";
+    } elseif (!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Invalid email format.";
     } else {
-        $error = "Admin not found.";
-        $firstname = '';
-        $lastname = '';
-        $email = '';
-        $profile_picture = 'https://via.placeholder.com/150';
-    }
-    $stmt->close();
+        // Check if email already exists (excluding current admin)
+        $stmt = $conn->prepare("SELECT email FROM users WHERE email = ? AND user_id != ? AND type = 'admin'");
+        $stmt->bind_param("si", $new_email, $admin_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $error = "Email already exists.";
+        }
+        $stmt->close();
 
-    // Handle profile update
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $new_firstname = trim($_POST['firstname']);
-        $new_lastname = trim($_POST['lastname']);
-        $new_email = trim($_POST['email']);
-        $new_password = trim($_POST['password']);
-        $profile_picture_path = $admin['profile_picture'] ?: '';
+        // Handle profile picture upload
+        if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] != UPLOAD_ERR_NO_FILE) {
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            $max_size = 5 * 1024 * 1024; // 5MB
+            $upload_dir = 'uploads/';
 
-        // Validate inputs
-        if (empty($new_firstname) || empty($new_lastname) || empty($new_email)) {
-            $error = "First name, last name, and email are required.";
-        } elseif (!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
-            $error = "Invalid email format.";
-        } else {
-            // Check if email already exists (excluding current admin)
-            $stmt = $conn->prepare("SELECT email FROM admin WHERE email = ? AND admin_id != ?");
-            $stmt->bind_param("si", $new_email, $admin_id);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                $error = "Email already exists.";
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0755, true);
             }
-            $stmt->close();
 
-            // Handle profile picture upload
-            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] != UPLOAD_ERR_NO_FILE) {
-                $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-                $max_size = 5 * 1024 * 1024; // 5MB
-                $upload_dir = 'uploads/';
+            $file_type = $_FILES['profile_picture']['type'];
+            $file_size = $_FILES['profile_picture']['size'];
+            $file_tmp = $_FILES['profile_picture']['tmp_name'];
+            $file_name = uniqid() . '_' . $_FILES['profile_picture']['name'];
+            $file_path = $upload_dir . $file_name;
 
-                if (!is_dir($upload_dir)) {
-                    mkdir($upload_dir, 0755, true);
-                }
-
-                $file_type = $_FILES['profile_picture']['type'];
-                $file_size = $_FILES['profile_picture']['size'];
-                $file_tmp = $_FILES['profile_picture']['tmp_name'];
-                $file_name = uniqid() . '_' . $_FILES['profile_picture']['name'];
-                $file_path = $upload_dir . $file_name;
-
-                if (!in_array($file_type, $allowed_types)) {
-                    $error = "Only JPEG, PNG, and GIF images are allowed.";
-                } elseif ($file_size > $max_size) {
-                    $error = "Image size should not exceed 5MB.";
-                } else {
-                    if (move_uploaded_file($file_tmp, $file_path)) {
-                        // Delete old profile picture if it exists
-                        if ($profile_picture_path && file_exists($profile_picture_path)) {
-                            unlink($profile_picture_path);
-                        }
-                        $profile_picture_path = $file_path;
-                    } else {
-                        $error = "Failed to upload the profile picture.";
+            if (!in_array($file_type, $allowed_types)) {
+                $error = "Only JPEG, PNG, and GIF images are allowed.";
+            } elseif ($file_size > $max_size) {
+                $error = "Image size should not exceed 5MB.";
+            } else {
+                if (move_uploaded_file($file_tmp, $file_path)) {
+                    // Delete old profile picture if it exists
+                    if ($profile_picture_path && file_exists($profile_picture_path)) {
+                        unlink($profile_picture_path);
                     }
-                }
-            }
-
-            if (empty($error)) {
-                // Update admin details
-                if (!empty($new_password)) {
-                    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare("UPDATE admin SET firstname = ?, lastname = ?, email = ?, password = ?, profile_picture = ? WHERE admin_id = ?");
-                    $stmt->bind_param("sssssi", $new_firstname, $new_lastname, $new_email, $hashed_password, $profile_picture_path, $admin_id);
+                    $profile_picture_path = $file_path;
                 } else {
-                    $stmt = $conn->prepare("UPDATE admin SET firstname = ?, lastname = ?, email = ?, profile_picture = ? WHERE admin_id = ?");
-                    $stmt->bind_param("ssssi", $new_firstname, $new_lastname, $new_email, $profile_picture_path, $admin_id);
+                    $error = "Failed to upload the profile picture.";
                 }
-
-                if ($stmt->execute()) {
-                    $success = "Profile updated successfully.";
-                    // Update session variables (if needed, though not currently used)
-                    $firstname = $new_firstname;
-                    $lastname = $new_lastname;
-                    $email = $new_email;
-                    $profile_picture = $profile_picture_path ?: 'https://via.placeholder.com/150';
-                } else {
-                    $error = "Failed to update profile. Please try again.";
-                }
-                $stmt->close();
             }
         }
-        $conn->close();
+
+        if (empty($error)) {
+            // Update admin details
+            if (!empty($new_password)) {
+                $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+                $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, profile_picture = ? WHERE user_id = ? AND type = 'admin'");
+                $stmt->bind_param("sssssi", $new_firstname, $new_lastname, $new_email, $hashed_password, $profile_picture_path, $admin_id);
+            } else {
+                $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, profile_picture = ? WHERE user_id = ? AND type = 'admin'");
+                $stmt->bind_param("ssssi", $new_firstname, $new_lastname, $new_email, $profile_picture_path, $admin_id);
+            }
+
+            if ($stmt->execute()) {
+                $success = "Profile updated successfully.";
+                $firstname = $new_firstname;
+                $lastname = $new_lastname;
+                $email = $new_email;
+                $profile_picture = $profile_picture_path ?: 'https://via.placeholder.com/150';
+            } else {
+                $error = "Failed to update profile. Please try again.";
+            }
+            $stmt->close();
+        }
     }
-    ?>
+    $conn->close();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -129,13 +128,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/admin_profile.css">
-
 </head>
 <body>
-
     <!-- Sidebar -->
     <?php include 'include/sidebar.php'; ?>
 
@@ -165,12 +161,12 @@
 
             <form method="POST" action="" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="firstname" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname" value="<?php echo htmlspecialchars($firstname); ?>" required>
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo htmlspecialchars($firstname); ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="lastname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo htmlspecialchars($lastname); ?>" required>
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo htmlspecialchars($lastname); ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>

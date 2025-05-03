@@ -5,8 +5,8 @@
     // Check if admin is logged in
     include 'include/check_admin.php';
 
-    // Fetch all 3D models
-    $query = "SELECT model_name, description FROM 3d_models";
+    // Fetch all users
+    $query = "SELECT user_id, first_name, last_name, email FROM users WHERE type='student'";
     $result = $conn->query($query);
     $conn->close();
     ?>
@@ -16,20 +16,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Model Details</title>
+    <title>User Details</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-
+    
 </head>
 <body>
 
     <!-- Include Sidebar -->
     <?php
-    $page = 'view_3d_models'; // Set the page for active link
+    $page = 'students'; 
     include 'include/sidebar.php';
     ?>
 
@@ -39,30 +39,30 @@
         <?php include 'include/header.php'; ?>
 
         <div class="header mb-4">
-            <h2>3D Model Details</h2>
-            <div>List of all 3D models in the system.</div>
+            <h2>Students Details</h2>
+            <div>List of all students in the system.</div>
         </div>
 
-        <!-- 3D Model List Table -->
+        <!-- User List Table -->
         <div class="table-container">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Model Name</th>
-                        <th>Description</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if ($result->num_rows > 0): ?>
                         <?php while ($row = $result->fetch_assoc()): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($row['model_name']); ?></td>
-                                <td><?php echo htmlspecialchars($row['description']); ?></td>
+                                <td><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></td>
+                                <td><?php echo htmlspecialchars($row['email']); ?></td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="2" class="text-center">No 3D models found.</td>
+                            <td colspan="3" class="text-center">No students found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

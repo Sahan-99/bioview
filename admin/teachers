@@ -2,35 +2,11 @@
     session_start();
     include 'dbconnect.php';
 
-
     // Check if admin is logged in
-    if (!isset($_SESSION['admin_id'])) {
-        header("Location: admin_login.php");
-        exit();
-    }
-
-    $admin_id = $_SESSION['admin_id'];
-
-    // Fetch current admin details for the header
-    $stmt = $conn->prepare("SELECT firstname, lastname, profile_picture FROM admin WHERE admin_id = ?");
-    $stmt->bind_param("i", $admin_id);
-    $stmt->execute();
-    $admin_result = $stmt->get_result();
-
-    if ($admin_result->num_rows > 0) {
-        $admin_data = $admin_result->fetch_assoc();
-        $firstname = $admin_data['firstname'] ?? 'Admin';
-        $lastname = $admin_data['lastname'] ?? '';
-        $profile_picture = $admin_data['profile_picture'] ?? 'https://via.placeholder.com/40';
-    } else {
-        $firstname = 'Admin';
-        $lastname = '';
-        $profile_picture = 'https://via.placeholder.com/40';
-    }
-    $stmt->close();
+    include 'include/check_admin.php';
 
     // Fetch all users
-    $query = "SELECT user_id, first_name, last_name, email FROM users";
+    $query = "SELECT user_id, first_name, last_name, email FROM users WHERE type='teachers'";
     $result = $conn->query($query);
     $conn->close();
     ?>
@@ -53,7 +29,7 @@
 
     <!-- Include Sidebar -->
     <?php
-    $page = 'users'; 
+    $page = 'students'; 
     include 'include/sidebar.php';
     ?>
 
@@ -63,8 +39,8 @@
         <?php include 'include/header.php'; ?>
 
         <div class="header mb-4">
-            <h2>User Details</h2>
-            <div>List of all users in the system.</div>
+            <h2>Teachers Details</h2>
+            <div>List of all teachers in the system.</div>
         </div>
 
         <!-- User List Table -->
@@ -86,7 +62,7 @@
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="3" class="text-center">No users found.</td>
+                            <td colspan="3" class="text-center">No teachers found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

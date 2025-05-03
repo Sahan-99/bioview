@@ -1,75 +1,53 @@
 <?php
-    session_start();
-    include 'dbconnect.php'; // Include the database connection
+session_start();
+include 'dbconnect.php'; // Include the database connection
 
-    // Check if admin is logged in
-    if (!isset($_SESSION['admin_id'])) {
-        header("Location: admin_login.php");
-        exit();
-    }
+// Check if admin is logged in
+include 'include/check_admin.php';
 
-    $admin_id = $_SESSION['admin_id'];
+$error = '';
+$success = '';
 
-    // Fetch current admin details for the header
-    $stmt = $conn->prepare("SELECT firstname, lastname, profile_picture FROM admin WHERE admin_id = ?");
-    $stmt->bind_param("i", $admin_id);
-    $stmt->execute();
-    $admin_result = $stmt->get_result();
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
-    if ($admin_result->num_rows > 0) {
-        $admin_data = $admin_result->fetch_assoc();
-        $firstname = $admin_data['firstname'] ?? 'Admin';
-        $lastname = $admin_data['lastname'] ?? '';
-        $profile_picture = $admin_data['profile_picture'] ?? 'https://via.placeholder.com/40';
+    // Validate inputs
+    if (empty($email) || empty($password)) {
+        $error = "Email and password are required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Invalid email format.";
+    } elseif (strlen($password) < 6) {
+        $error = "Password must be at least 6 characters long.";
     } else {
-        $firstname = 'Admin';
-        $lastname = '';
-        $profile_picture = 'https://via.placeholder.com/40';
-    }
-    $stmt->close();
-
-    $error = '';
-    $success = '';
-
-    // Handle form submission
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
-
-        // Validate inputs
-        if (empty($email) || empty($password)) {
-            $error = "Email and password are required.";
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error = "Invalid email format.";
-        } elseif (strlen($password) < 6) {
-            $error = "Password must be at least 6 characters long.";
+        // Check if email already exists in the users table
+        $stmt = $conn->prepare("SELECT email FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $error = "Email already exists.";
         } else {
-            // Check if email already exists
-            $stmt = $conn->prepare("SELECT email FROM admin WHERE email = ?");
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                $error = "Email already exists.";
-            } else {
-                // Insert new admin into the database
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $default_firstname = "New";
-                $default_lastname = "Admin";
-                $stmt = $conn->prepare("INSERT INTO admin (firstname, lastname, email, password) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("ssss", $default_firstname, $default_lastname, $email, $hashed_password);
+            // Insert new admin into the users table with type 'admin'
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $default_firstname = "New";
+            $default_lastname = "Admin";
+            $user_type = "admin";
+            $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, type) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $default_firstname, $default_lastname, $email, $hashed_password, $user_type);
 
-                if ($stmt->execute()) {
-                    $success = "New admin added successfully!";
-                } else {
-                    $error = "Failed to add new admin. Please try again.";
-                }
+            if ($stmt->execute()) {
+                $success = "New admin added successfully!";
+            } else {
+                $error = "Failed to add new admin. Please try again.";
             }
-            $stmt->close();
         }
-        $conn->close();
+        $stmt->close();
     }
-    ?>
+    $conn->close();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,13 +60,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/new_admin.css">
-
 </head>
 <body>
-
     <!-- Sidebar -->
     <?php include 'include/sidebar.php'; ?>
 
@@ -123,7 +99,7 @@
                 <button type="submit" class="btn btn-primary w-100">Add New Admin</button>
             </form>
             <div class="text-center mt-3">
-                <a href="admin_details.php" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"> </i>Back to Admin List</a>
+                <a href="admin_details.php" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Back to Admin List</a>
             </div>
         </div>
     </div>
