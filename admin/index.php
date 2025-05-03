@@ -60,7 +60,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
     
-
     <?php $page = "index"; ?>
 </head>
 <body>
