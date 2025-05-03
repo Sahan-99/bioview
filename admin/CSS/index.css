@@ -27,6 +27,15 @@
     font-weight: bold;
     margin: 5px 0;
 }
+.card-body a {
+    font-size: 0.8rem;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 10; /* Ensure link is above other elements */
+}
+
 .card-icon-bg {
     position: absolute;
     font-size: 8rem; /* Large size for background icon */
@@ -35,6 +44,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 0; /* Behind the content */
+    pointer-events: none; /* Prevent icon from blocking clicks */
 }
 /* Unique colors for each card's icon and number */
 .students-icon, .students-icon + h3 {
@@ -64,4 +74,3 @@
 .reports-icon, .reports-icon + h3 {
     color: #118ab2; 
 }
-

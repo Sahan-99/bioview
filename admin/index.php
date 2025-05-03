@@ -58,6 +58,7 @@ $conn->close();
                         <i class="fas fa-user-graduate card-icon-bg students-icon"></i>
                         <h3 class="students-icon"><?php echo $student_count; ?></h3>
                         <h5>STUDENTS</h5>
+                        <a href="students.php">click to view</a>
                     </div>
                 </div>
             </div>
@@ -67,6 +68,7 @@ $conn->close();
                         <i class="fas fa-chalkboard-teacher card-icon-bg teachers-icon"></i>
                         <h3 class="teachers-icon"><?php echo $teacher_count; ?></h3>
                         <h5>TEACHERS</h5>
+                        <a href="teachers.php">click to view</a>
                     </div>
                 </div>
             </div>
@@ -76,6 +78,7 @@ $conn->close();
                         <i class="fas fa-user-shield card-icon-bg admins-icon"></i>
                         <h3 class="admins-icon"><?php echo $admin_count; ?></h3>
                         <h5>ADMINS</h5>
+                        <a href="admins.php">click to view</a>
                     </div>
                 </div>
             </div>
@@ -85,6 +88,7 @@ $conn->close();
                         <i class="fas fa-cube card-icon-bg models-icon"></i>
                         <h3 class="models-icon"><?php echo $models_count; ?></h3>
                         <h5>3D MODELS</h5>
+                        <a href="3d_models.php">click to view</a>
                     </div>
                 </div>
             </div>
@@ -94,6 +98,7 @@ $conn->close();
                         <i class="fas fa-image card-icon-bg images-icon"></i>
                         <h3 class="images-icon"><?php echo $images_count; ?></h3>
                         <h5>SCANNED IMAGES</h5>
+                        <a href="images.php">click to view</a>
                     </div>
                 </div>
             </div>
@@ -103,6 +108,7 @@ $conn->close();
                         <i class="fas fa-music card-icon-bg audio-icon"></i>
                         <h3 class="audio-icon"><?php echo $audio_count; ?></h3>
                         <h5>AUDIOS</h5>
+                        <a href="audio.php">click to view</a>
                     </div>
                 </div>
             </div>
@@ -112,6 +118,7 @@ $conn->close();
                         <i class="fas fa-question-circle card-icon-bg quiz-icon"></i>
                         <h3 class="quiz-icon"><?php echo $quiz_count; ?></h3>
                         <h5>QUIZZES</h5>
+                        <a href="quiz.php">click to view</a>
                     </div>
                 </div>
             </div>
@@ -121,6 +128,7 @@ $conn->close();
                         <i class="fas fa-history card-icon-bg attempts-icon"></i>
                         <h3 class="attempts-icon"><?php echo $attempt_count; ?></h3>
                         <h5>QUIZ ATTEMPTS</h5>
+                        <a href="quiz_attempts.php">click to view</a>
                     </div>
                 </div>
             </div>
@@ -130,6 +138,7 @@ $conn->close();
                         <i class="fas fa-file-alt card-icon-bg reports-icon"></i>
                         <h3 class="reports-icon"><?php echo $report_count; ?></h3>
                         <h5>REPORTS</h5>
+                        <a href="reports.php">click to view</a>
                     </div>
                 </div>
             </div>

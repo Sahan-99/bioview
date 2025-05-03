@@ -22,7 +22,7 @@
         <i class="fas fa-chevron-down ms-auto"></i>
     </a>
     <div id="modelsSubmenu" class="collapse <?php echo (in_array($page, ['view_3d_models', 'add_3d_models']) ? 'show' : '') ?>">
-        <a href="3d_model.php" class="submenu <?php echo ($page == 'view_3d_models' ? 'active' : '') ?>"><i class="fas fa-eye me-2"></i> View 3D Models</a>
+        <a href="3d_models.php" class="submenu <?php echo ($page == 'view_3d_models' ? 'active' : '') ?>"><i class="fas fa-eye me-2"></i> View 3D Models</a>
         <a href="add_3d_models.php" class="submenu <?php echo ($page == 'add_3d_models' ? 'active' : '') ?>"><i class="fas fa-plus me-2"></i> Add 3D Models</a>
     </div>
 
