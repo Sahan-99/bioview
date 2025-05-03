@@ -16,12 +16,12 @@
     z-index: 1; /* Ensure content is above the background icon */
 }
 .card-body h3 {
-    font-size: 3.2rem;
+    font-size: 3rem;
     font-weight: 700;
     margin: 0;
 }
 .card-body h5 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-transform: uppercase;
     color: #363636;
     font-weight: bold;

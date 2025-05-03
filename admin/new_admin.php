@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Admin</title>
-    <link rel="icon" type="image/x-icon" href="img/logo.png">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/new_admin.css">
-
-</head>
-<body>
-    <?php
-    include 'dbconnect.php'; // Include the database connection
+<?php
     session_start();
+    include 'dbconnect.php'; // Include the database connection
 
     // Check if admin is logged in
     if (!isset($_SESSION['admin_id'])) {
@@ -88,6 +71,24 @@
     }
     ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Admin</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/new_admin.css">
+
+</head>
+<body>
+
     <!-- Sidebar -->
     <?php include 'include/sidebar.php'; ?>
 
@@ -98,7 +99,7 @@
 
         <div class="header mb-4">
             <h1>Add New Admin</h1>
-            <p>Create a new admin account using email and password.</p>
+            <div>Create a new admin account using email and password.</div>
         </div>
 
         <!-- Add New Admin Form -->

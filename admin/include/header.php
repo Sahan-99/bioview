@@ -5,7 +5,7 @@
             </div>
             <div class="dropdown">
                 <div class="d-flex align-items-center" data-bs-toggle="dropdown" style="cursor: pointer;">
-                    <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile" class="rounded-circle me-2" style="width: 60px;">
+                    <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile" class="rounded-circle me-2" style="width: 50px;">
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="admin_profile.php">Profile</a></li>
