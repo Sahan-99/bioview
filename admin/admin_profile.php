@@ -188,12 +188,13 @@
                 <button type="submit" class="btn btn-primary w-100">Update Profile</button>
             </form>
             <div class="text-center mt-3">
-                <a href="logout.php" class="btn btn-danger">Logout</a>
+                <a href="logout.php" class="btn btn-danger"><i class="fas fa-sign-out me-2"></i> Logout</a>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/hamburger.js"></script>
 </body>
 </html>

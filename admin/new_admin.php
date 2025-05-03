@@ -98,7 +98,7 @@
         <?php include 'include/header.php'; ?>
 
         <div class="header mb-4">
-            <h1>Add New Admin</h1>
+            <h2>Add New Admin</h2>
             <div>Create a new admin account using email and password.</div>
         </div>
 
@@ -120,15 +120,16 @@
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
                     <small class="form-text text-muted">Password must be at least 6 characters long.</small>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Add Admin</button>
+                <button type="submit" class="btn btn-primary w-100">Add New Admin</button>
             </form>
             <div class="text-center mt-3">
-                <a href="admin_details.php" class="btn btn-secondary">Back to Admin List</a>
+                <a href="admin_details.php" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"> </i>Back to Admin List</a>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/hamburger.js"></script>
 </body>
 </html>

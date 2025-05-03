@@ -1,4 +1,5 @@
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
+<button id="close-sidebar" class="close-sidebar"><i class="fas fa-times"></i></button>
         <div class="logo">
             <a href="index.php"><img src="img/logo.png" alt="logo"></a>
         </div>

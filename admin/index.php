@@ -159,6 +159,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/hamburger.js"></script>
     <script>
     // Store the admin name in a JavaScript variable
     const adminName = "<?php echo htmlspecialchars($firstname); ?>";
@@ -204,6 +205,7 @@
     updateHeader();
     // Update every minute to keep the time current and adjust greeting if needed
     setInterval(updateHeader, 60000);
+
     </script>
 </body>
 </html>
