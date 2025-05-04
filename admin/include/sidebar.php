@@ -17,7 +17,7 @@
     </div>
 
     <!-- 3D Models Menu -->
-    <a href="#modelsSubmenu" class="<?php echo (in_array($page, ['view_3d_models', 'add_3d_models']) ? 'active' : '') ?>" data-bs-toggle="collapse" aria-expanded="<?php echo (in_array($page, ['view_3d_models', 'add_3d_models']) ? 'true' : 'false') ?>">
+    <a href="#modelsSubmenu" class="<?php echo (in_array($page, ['view_3d_models', 'add_3d_models', 'update_3d_models']) ? 'active' : '') ?>" data-bs-toggle="collapse" aria-expanded="<?php echo (in_array($page, ['view_3d_models', 'add_3d_models']) ? 'true' : 'false') ?>">
         <i class="fas fa-cube me-2"></i> 3D Models
         <i class="fas fa-chevron-down ms-auto"></i>
     </a>
@@ -27,7 +27,7 @@
     </div>
 
     <!-- Scanned Images Menu -->
-    <a href="#imagesSubmenu" class="<?php echo (in_array($page, ['view_images', 'add_images']) ? 'active' : '') ?>" data-bs-toggle="collapse" aria-expanded="<?php echo (in_array($page, ['view_images', 'add_images']) ? 'true' : 'false') ?>">
+    <a href="#imagesSubmenu" class="<?php echo (in_array($page, ['view_images', 'add_images', 'update_images']) ? 'active' : '') ?>" data-bs-toggle="collapse" aria-expanded="<?php echo (in_array($page, ['view_images', 'add_images']) ? 'true' : 'false') ?>">
         <i class="fas fa-image me-2"></i> Scanned Images
         <i class="fas fa-chevron-down ms-auto"></i>
     </a>

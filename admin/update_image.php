@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form.css">
-    <?php $page = "view_images"; ?>
+    <?php $page = "update_images"; ?>
 </head>
 <body>
     <!-- Sidebar -->
