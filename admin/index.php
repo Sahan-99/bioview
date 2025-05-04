@@ -174,7 +174,7 @@ $conn->close();
             year: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
-            hour12: false
+            hour12: true
         };
         // Format the date and time: "30 Apr 2025, 14:30"
         const formattedDateTime = now.toLocaleString('en-GB', options)
