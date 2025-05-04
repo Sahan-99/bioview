@@ -2,10 +2,7 @@
 <button id="hamburger" class="navbar-toggler" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
-            <div class="input-group w-25">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-                <input type="text" class="form-control" placeholder="Search...">
-            </div>
+            
             <div class="dropdown">
                 <div class="d-flex align-items-center" data-bs-toggle="dropdown" style="cursor: pointer;">
                     <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile" class="rounded-circle me-2" style="width: 50px;">
