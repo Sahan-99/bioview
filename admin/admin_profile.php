@@ -3,12 +3,12 @@ session_start();
 include 'dbconnect.php';
 
 // Check if admin is logged in
-if (!isset($_SESSION['admin_id'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: admin_login.php");
     exit();
 }
 
-$admin_id = $_SESSION['admin_id'];
+$admin_id = $_SESSION['user_id'];
 $error = '';
 $success = '';
 
