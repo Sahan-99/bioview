@@ -37,7 +37,7 @@
     </div>
 
     <!-- Audio Menu -->
-    <a href="#audioSubmenu" class="<?php echo (in_array($page, ['view_audio', 'add_audio']) ? 'active' : '') ?>" data-bs-toggle="collapse" aria-expanded="<?php echo (in_array($page, ['view_audio', 'add_audio']) ? 'true' : 'false') ?>">
+    <a href="#audioSubmenu" class="<?php echo (in_array($page, ['view_audio', 'add_audio', 'update_audio']) ? 'active' : '') ?>" data-bs-toggle="collapse" aria-expanded="<?php echo (in_array($page, ['view_audio', 'add_audio']) ? 'true' : 'false') ?>">
         <i class="fas fa-music me-2"></i> Audio
         <i class="fas fa-chevron-down ms-auto"></i>
     </a>
