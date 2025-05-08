@@ -1,5 +1,5 @@
 // Hamburger menu and close icon toggle
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.getElementById('hamburger');
     const closeSidebar = document.getElementById('close-sidebar');
     const sidebar = document.getElementById('sidebar');
@@ -21,4 +21,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     backdrop.addEventListener('click', toggleSidebar);
+
+    // Auto Logout After 1 Minute of Inactivity
+    let logoutTimer;
+
+    function resetLogoutTimer() {
+        clearTimeout(logoutTimer);
+        logoutTimer = setTimeout(() => {
+            window.location.href = 'lock_screen.php';
+        }, 60000); // 1 minute = 60000 ms
+    }
+
+    // Reset timer on these activities
+    window.onload = resetLogoutTimer;
+    document.onmousemove = resetLogoutTimer;
+    document.onkeypress = resetLogoutTimer;
+    document.onclick = resetLogoutTimer;
+    document.onscroll = resetLogoutTimer;
 });

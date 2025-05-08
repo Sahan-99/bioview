@@ -1,9 +1,11 @@
 <?php
-session_start();
 include 'dbconnect.php';
+include 'include/check_session.php';
 
 // Check if admin is logged in
 include 'include/check_admin.php';
+
+
 
 // Fetch counts from all tables
 $student_count = $conn->query("SELECT COUNT(*) FROM users WHERE type = 'student'")->fetch_row()[0];

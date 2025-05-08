@@ -1,5 +1,5 @@
- /* Reset and base styles */
- * {
+/* Reset and base styles */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -15,8 +15,8 @@ body {
     padding: 16px;
 }
 
-/* Login container */
-.login-container {
+/* Lock screen container */
+.lock-screen-container {
     background-color: #ffffff;
     padding: 32px;
     border-radius: 16px;
@@ -24,6 +24,7 @@ body {
     width: 100%;
     max-width: 400px;
     animation: fadeIn 0.5s ease-out;
+    text-align: center;
 }
 
 /* Logo */
@@ -39,7 +40,45 @@ h2 {
     font-size: 1.5rem;
     font-weight: 700;
     color: #1f2937;
-    text-align: center;
+    margin-bottom: 16px;
+}
+
+/* Paragraph */
+p.description {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-bottom: 24px;
+}
+
+/* Profile picture */
+.rounded-circle {
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.me-2 {
+    margin-right: 8px;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+/* Admin name */
+.admin-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+/* Admin email */
+.admin-email {
+    font-size: 0.875rem;
+    color: #4b5563;
     margin-bottom: 24px;
 }
 
@@ -114,6 +153,7 @@ button:hover {
     padding: 16px;
     margin-bottom: 24px;
     border-radius: 0 8px 8px 0;
+    text-align: left;
 }
 
 /* Animations */
@@ -124,7 +164,7 @@ button:hover {
 
 /* Responsive design */
 @media (max-width: 640px) {
-    .login-container {
+    .lock-screen-container {
         padding: 24px;
         max-width: 100%;
     }
@@ -135,6 +175,10 @@ button:hover {
 
     .logo {
         height: 40px;
+    }
+
+    img.rounded-circle {
+        width: 40px !important;
     }
 }
 

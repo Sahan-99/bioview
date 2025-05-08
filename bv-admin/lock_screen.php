@@ -2,49 +2,46 @@
 session_start();
 include 'dbconnect.php';
 
-// If admin is already logged in, redirect to dashboard
-if (isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+// Check if admin is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: admin_login.php");
     exit();
 }
+
+// Fetch admin details
+$stmt = $conn->prepare("SELECT first_name, last_name, email, password, profile_picture FROM users WHERE user_id = ? AND type = 'admin'");
+$stmt->bind_param("i", $_SESSION['user_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+$admin = $result->fetch_assoc();
+$stmt->close();
+
+// Set profile picture path (use default if not set or file doesn't exist)
+$profile_picture = !empty($admin['profile_picture']) && file_exists($admin['profile_picture']) 
+    ? $admin['profile_picture'] 
+    : 'images/default_profile.jpg';
 
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    // Basic validation
-    if (empty($email) || empty($password)) {
-        $error = "Email and password are required.";
+    // Validate password
+    if (empty($password)) {
+        $error = "Password is required.";
     } else {
-        // Fetch admin by email from users table with type 'admin'
-        $stmt = $conn->prepare("SELECT user_id, first_name, last_name, password FROM users WHERE email = ? AND type = 'admin'");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $admin = $result->fetch_assoc();
-            // Verify password
-            if (password_verify($password, $admin['password'])) {
-                // Set session variables
-                $_SESSION['user_id'] = $admin['user_id'];
-                $_SESSION['first_name'] = $admin['first_name'];
-                $_SESSION['last_name'] = $admin['last_name'];
-                // Redirect to dashboard
-                header("Location: index.php");
-                exit();
-            } else {
-                $error = "Invalid email or password.";
-            }
+        // Verify password
+        if (password_verify($password, $admin['password'])) {
+            // Update session to indicate active status
+            $_SESSION['last_activity'] = time();
+            header("Location: index.php");
+            exit();
         } else {
-            $error = "Invalid email or password.";
+            $error = "Invalid password.";
         }
-        $stmt->close();
     }
-    $conn->close();
 }
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -55,16 +52,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Admin Login</title>
+    <title>Bioview Lock Screen</title>
     <link rel="icon" type="image/x-icon" href="img/logo.png">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/admin_login.css">
+    <link rel="stylesheet" href="css/lock_screen.css">
 </head>
 <body>
-    <div class="login-container">
+    <div class="lock-screen-container">
         <img src="img/logo.png" alt="Logo" class="logo">
-        <h2>BioView Admin Login</h2>
+        <h2>BioView Lock Screen</h2>
+        <p class="description">Your session is locked due to inactivity. Please enter your password to continue.</p>
+        
+        <div class="profile-container">
+            <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile" class="rounded-circle me-2" style="width: 80px;">
+        </div>
+        <div class="admin-name"><?php echo htmlspecialchars($admin['first_name'] . ' ' . $admin['last_name']); ?></div>
+        <div class="admin-email"><?php echo htmlspecialchars($admin['email']); ?></div>
         
         <?php if ($error): ?>
             <div class="alert" role="alert">
@@ -74,20 +78,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <form method="POST" action="">
             <div class="form-group">
-                <label for="email">Email</label>
-                <div class="input-wrapper">
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                    <i class="fas fa-envelope input-icon"></i>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
+                
                 <div class="input-wrapper">
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
                     <i class="fas fa-eye password-toggle input-icon" onclick="togglePassword()"></i>
                 </div>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit">Unlock</button>
         </form>
     </div>
 
