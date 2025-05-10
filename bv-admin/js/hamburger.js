@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clearTimeout(logoutTimer);
         logoutTimer = setTimeout(() => {
             window.location.href = 'lock_screen.php';
-        }, 60000); // 1 minute = 60000 ms
+        }, 600000); // 1 minute = 60000 ms
     }
 
     // Reset timer on these activities

@@ -9,6 +9,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 $error = '';
+$success_message = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : '';
+unset($_SESSION['success_message']); // Clear the success message after displaying
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
@@ -59,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" type="image/x-icon" href="img/logo.png">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/admin_login.css">
 </head>
 <body>
@@ -67,9 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>BioView Admin Login</h2>
         
         <?php if ($error): ?>
-            <div class="alert" role="alert">
-                <p><?php echo $error; ?></p>
-            </div>
+            div class="alert alert-danger"><?php echo $error; ?></div>
+        <?php endif; ?>
+        <?php if ($success_message): ?>
+            <div class="alert alert-success"><?php echo $success_message; ?></div>
         <?php endif; ?>
 
         <form method="POST" action="">
@@ -90,6 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit">Login</button>
         </form>
     </div>
+    
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Toggle password visibility

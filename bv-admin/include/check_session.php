@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Set session timeout in seconds (1 minute = 60 seconds)
-$timeout_duration = 60;
+$timeout_duration = 600;
 
 if (isset($_SESSION['LAST_ACTIVITY']) && 
    (time() - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
