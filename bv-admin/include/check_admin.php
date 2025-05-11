@@ -4,26 +4,32 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Get the logged-in admin's ID from the session
 $admin_id = $_SESSION['user_id'];
 
-// Use prepared statement to prevent SQL injection
-$stmt = $conn->prepare("SELECT first_name, last_name, profile_picture FROM users WHERE user_id = ? AND type = 'admin'");
+$stmt = $conn->prepare("SELECT first_name, last_name, profile_picture, type FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $admin_id);
 $stmt->execute();
 $admin_result = $stmt->get_result();
 
-// Check if the query returned a result
 if ($admin_result->num_rows > 0) {
     $admin_data = $admin_result->fetch_assoc();
+
+    // Check if the user is an admin
+    if ($admin_data['type'] !== 'admin') {
+        // Not an admin, redirect
+        header("Location: unauthorized.php"); // or any access denied page
+        exit();
+    }
+
+    // Admin info
     $firstname = $admin_data['first_name'] ?? 'Admin';
     $lastname = $admin_data['last_name'] ?? '';
     $profile_picture = $admin_data['profile_picture'] ?? 'https://via.placeholder.com/40';
+
 } else {
-    // Handle case where admin is not found (e.g., invalid admin_id or type)
-    $firstname = 'Admin';
-    $lastname = '';
-    $profile_picture = 'https://via.placeholder.com/40';
+    // Admin not found
+    header("Location: admin_login.php");
+    exit();
 }
 
 $stmt->close();
