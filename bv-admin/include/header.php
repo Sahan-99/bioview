@@ -10,9 +10,9 @@
         </div>
         <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="admin_profile.php"><i class="fas fa-user me-2"></i> Profile</a></li>
-            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 1): ?>
-                <li><a class="dropdown-item" href="new_admin.php"><i class="fas fa-user-plus me-2"></i> Add Admin</a></li>
-            <?php endif; ?>
+
+            <li><a class="dropdown-item" href="new_admin.php"><i class="fas fa-user-plus me-2"></i> Add Admin</a></li>
+
             <li><a class="dropdown-item" href="logout.php"><i class="fas fa-sign-out me-2"></i> Logout</a></li>
         </ul>
     </div>

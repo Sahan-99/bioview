@@ -2,6 +2,11 @@
 session_start();
 include 'dbconnect.php'; // Include the database connection
 
+if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != 1) {
+    header("Location: unauthorized.php");
+    exit();
+}
+
 // Check if admin is logged in
 include 'include/check_admin.php';
 
