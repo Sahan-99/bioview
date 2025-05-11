@@ -10,6 +10,12 @@ $success = '';
 
 // Handle soft deletion (set status to 0)
 if (isset($_GET['delete_id'])) {
+    // Allow only super admin to delete
+    if ($_SESSION['user_id'] != 1) {
+        header("Location: unauthorized.php");
+        exit();
+    }
+
     $delete_id = $_GET['delete_id'];
 
     // Check if the audio exists and has status = 1
