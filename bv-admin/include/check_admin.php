@@ -17,7 +17,7 @@ if ($admin_result->num_rows > 0) {
     // Check if the user is an admin
     if ($admin_data['type'] !== 'admin') {
         // Not an admin, redirect
-        header("Location: unauthorized.php"); // or any access denied page
+        header("Location: unauthorized.php");
         exit();
     }
 
