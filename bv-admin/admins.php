@@ -50,6 +50,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Profile Picture</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,6 +61,14 @@
                                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                                 <td>
                                     <img src="<?php echo htmlspecialchars($row['profile_picture'] ?: 'https://via.placeholder.com/50'); ?>" alt="Profile Picture">
+                                </td>
+                                <td>
+                                    <a href="view_admin_profile.php?id=<?php echo $row['user_id']; ?>" class="btn btn-sm btn-primary me-2">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a href="admins.php?delete_id=<?php echo $row['user_id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to mark this 3D model as deleted?');">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

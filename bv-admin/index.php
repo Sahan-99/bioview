@@ -23,6 +23,7 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,12 +31,97 @@ $conn->close();
     <link rel="icon" type="image/x-icon" href="img/logo.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
+    <style>
+ /* Chart container styling */
+.chart-container {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure the canvas scales properly */
+#usageChart {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+/* App Usage header styling */
+.app-usage-header {
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+}
+
+.btn-outline-light {
+    border-color: #fff;
+    color: #fff;
+    background-color: transparent;
+    font-size: 12px;
+    padding: 2px 10px;
+    margin-left: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: #fff;
+    color:rgb(0, 138, 30);
+    border-color: #fff;
+}
+
+/* Card styling */
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.shadow {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .chart-container {
+        height: 300px;
+    }
+
+    .app-usage-header h5 {
+        font-size: 16px;
+    }
+
+    .btn-outline-light {
+        font-size: 10px;
+        padding: 2px 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .chart-container {
+        height: 250px;
+    }
+
+    .app-usage-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .app-usage-header .btn-outline-light {
+        margin: 5px 0;
+        width: 100px;
+    }
+}
+    </style>
+
     <?php $page = "index"; ?>
 </head>
+
 <body>
     <!-- Sidebar -->
     <?php include 'include/sidebar.php'; ?>
@@ -145,56 +231,74 @@ $conn->close();
                 </div>
             </div>
         </div>
+
+<div class="card shadow p-3 mt-4" style="min-height: 450px;">
+    <div class="app-usage-header" style="background-color:rgb(0, 138, 30); color: white; padding: 10px 15px; border-radius: 5px 5px 0 0; display: flex; justify-content: space-between; align-items: center;">
+        <h5 class="mb-0">App Usage</h5>
+        <div>
+            <button class="btn btn-outline-light btn-sm" id="prevWeek">← Previous</button>
+            <button class="btn btn-outline-light btn-sm" id="nextWeek">Next →</button>
+        </div>
     </div>
+    <div class="chart-container d-flex justify-content-center align-items-center" style="height: 350px; width: 100%;">
+        <canvas id="usageChart" style="max-width: 90%; max-height: 90%;"></canvas>
+    </div>
+</div>
+
+    </div>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="js/hamburger.js"></script>
+    <script src="js/chart.js"></script>
     <script>
-    // Store the admin name in a JavaScript variable
-    const adminName = "<?php echo htmlspecialchars($firstname); ?>";
+        // Store the admin name in a JavaScript variable
+        const adminName = "<?php echo htmlspecialchars($firstname); ?>";
 
-    // Function to determine the greeting based on the time of day
-    function getGreeting() {
-        const now = new Date();
-        const hour = now.getHours();
-        if (hour >= 5 && hour < 12) {
-            return "Good Morning";
-        } else if (hour >= 12 && hour < 17) {
-            return "Good Afternoon";
-        } else {
-            return "Good Evening";
+        // Function to determine the greeting based on the time of day
+        function getGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            if (hour >= 5 && hour < 12) {
+                return "Good Morning";
+            } else if (hour >= 12 && hour < 17) {
+                return "Good Afternoon";
+            } else {
+                return "Good Evening";
+            }
         }
-    }
 
-    // Function to format and display the current date and time in the user's local timezone
-    function updateDateTime() {
-        const now = new Date();
-        const options = {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
-        };
-        // Format the date and time: "30 Apr 2025, 14:30"
-        const formattedDateTime = now.toLocaleString('en-GB', options)
-            .replace(/(\d{2}) (\w{3}) (\d{4}), (\d{2}):(\d{2})/, '$1 $2 $3, $4:$5');
-        document.getElementById('date-time').textContent = formattedDateTime;
-    }
+        // Function to format and display the current date and time in the user's local timezone
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            // Format the date and time: "30 Apr 2025, 14:30"
+            const formattedDateTime = now.toLocaleString('en-GB', options)
+                .replace(/(\d{2}) (\w{3}) (\d{4}), (\d{2}):(\d{2})/, '$1 $2 $3, $4:$5');
+            document.getElementById('date-time').textContent = formattedDateTime;
+        }
 
-    // Function to update the greeting and date/time
-    function updateHeader() {
-        const greeting = getGreeting();
-        document.getElementById('greeting').textContent = `${greeting} ${adminName}!`;
-        updateDateTime();
-    }
+        // Function to update the greeting and date/time
+        function updateHeader() {
+            const greeting = getGreeting();
+            document.getElementById('greeting').textContent = `${greeting} ${adminName}!`;
+            updateDateTime();
+        }
 
-    // Update immediately on page load
-    updateHeader();
-    // Update every minute to keep the time current and adjust greeting if needed
-    setInterval(updateHeader, 60000);
+        // Update immediately on page load
+        updateHeader();
+        // Update every minute to keep the time current and adjust greeting if needed
+        setInterval(updateHeader, 60000);
     </script>
 </body>
+
 </html>
