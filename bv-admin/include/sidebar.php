@@ -47,7 +47,7 @@
     </div>
 
     <!-- Quiz Menu -->
-    <a href="#quizSubmenu" class="<?php echo (in_array($page, ['view_quiz', 'add_quiz']) ? 'active' : '') ?>" data-bs-toggle="collapse" aria-expanded="<?php echo (in_array($page, ['view_quiz', 'add_quiz']) ? 'true' : 'false') ?>">
+    <a href="#quizSubmenu" class="<?php echo (in_array($page, ['view_quiz', 'add_quiz', 'update_quiz']) ? 'active' : '') ?>" data-bs-toggle="collapse" aria-expanded="<?php echo (in_array($page, ['view_quiz', 'add_quiz']) ? 'true' : 'false') ?>">
         <i class="fas fa-question-circle me-2"></i> Quiz
         <i class="fas fa-chevron-down ms-auto"></i>
     </a>

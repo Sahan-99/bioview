@@ -14,9 +14,9 @@ $admin_count = $conn->query("SELECT COUNT(*) FROM users WHERE type = 'admin'")->
 $models_count = $conn->query("SELECT COUNT(*) FROM 3d_models WHERE status=1")->fetch_row()[0];
 $images_count = $conn->query("SELECT COUNT(*) FROM scanned_images WHERE status=1")->fetch_row()[0];
 $audio_count = $conn->query("SELECT COUNT(*) FROM audio WHERE status=1")->fetch_row()[0];
-$quiz_count = $conn->query("SELECT COUNT(*) FROM quiz")->fetch_row()[0];
-$attempt_count = $conn->query("SELECT COUNT(*) FROM quiz_attempt")->fetch_row()[0];
-$report_count = $conn->query("SELECT COUNT(*) FROM report")->fetch_row()[0];
+$quiz_count = $conn->query("SELECT COUNT(*) FROM quizzes")->fetch_row()[0];
+$attempt_count = $conn->query("SELECT COUNT(*) FROM quiz_attempts")->fetch_row()[0];
+$report_count = $conn->query("SELECT COUNT(*) FROM reports")->fetch_row()[0];
 
 $conn->close();
 ?>
