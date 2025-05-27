@@ -11,6 +11,8 @@
         <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="admin_profile.php"><i class="fas fa-user me-2"></i> Profile</a></li>
 
+            <li><a class="dropdown-item" href="lock_screen.php"><i class="fas fa-lock me-2"></i> Lock Screen</a></li>
+
             <li><a class="dropdown-item" href="new_admin.php"><i class="fas fa-user-plus me-2"></i> Add Admin</a></li>
 
             <li><a class="dropdown-item" href="logout.php"><i class="fas fa-sign-out me-2"></i> Logout</a></li>
