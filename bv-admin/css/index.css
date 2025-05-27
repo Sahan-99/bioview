@@ -74,3 +74,6 @@
 .reports-icon, .reports-icon + h3 {
     color: #118ab2; 
 }
+.question-icon, .question-icon + h3{
+    color: #d200da; 
+}

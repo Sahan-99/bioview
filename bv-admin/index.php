@@ -15,6 +15,7 @@ $models_count = $conn->query("SELECT COUNT(*) FROM 3d_models WHERE status=1")->f
 $images_count = $conn->query("SELECT COUNT(*) FROM scanned_images WHERE status=1")->fetch_row()[0];
 $audio_count = $conn->query("SELECT COUNT(*) FROM audio WHERE status=1")->fetch_row()[0];
 $quiz_count = $conn->query("SELECT COUNT(*) FROM quizzes")->fetch_row()[0];
+$question_count = $conn->query("SELECT COUNT(*) FROM questions")->fetch_row()[0];
 $attempt_count = $conn->query("SELECT COUNT(*) FROM quiz_attempts")->fetch_row()[0];
 $report_count = $conn->query("SELECT COUNT(*) FROM reports")->fetch_row()[0];
 
@@ -227,6 +228,15 @@ $conn->close();
                         <h3 class="reports-icon"><?php echo $report_count; ?></h3>
                         <h5>REPORTS</h5>
                         <a href="reports.php">click to view</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <i class="fas fa-question card-icon-bg question-icon"></i>
+                        <h3 class="question-icon"><?php echo $question_count; ?></h3>
+                        <h5>QUESTIONS</h5>
                     </div>
                 </div>
             </div>
