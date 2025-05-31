@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 include 'dbconnect.php';
 
@@ -29,7 +33,12 @@ if ($quiz_id) {
 }
 
 // Handle question deletion
-if (isset($_GET['delete_id']) && $_SESSION['user_id'] == 1) {
+if (isset($_GET['delete_id'])) {
+    if ($_SESSION['user_id'] != 1) {
+        header("Location: unauthorized.php");
+        exit();
+    }
+
     $delete_id = (int)$_GET['delete_id'];
     $stmt = $conn->prepare("SELECT question_id FROM questions WHERE question_id = ? AND quiz_id = ?");
     $stmt->bind_param("ii", $delete_id, $quiz_id);
@@ -119,7 +128,7 @@ $conn->close();
 <body>
     <!-- Include Sidebar -->
     <?php
-    $page = 'update_quiz';
+    $page = 'view_quizzes';
     include 'include/sidebar.php';
     ?>
 
@@ -130,7 +139,7 @@ $conn->close();
 
         <div class="header mb-4">
             <h2>Questions for <?php echo htmlspecialchars($quiz_title); ?></h2>
-            <div>List of all questions and answers for the selected quiz.</div>
+            <div>List of all questions and answers.</div>
         </div>
 
         <!-- Messages -->
@@ -150,7 +159,7 @@ $conn->close();
                     <?php foreach ($questions as $index => $question): ?>
                         <div class="card shadow-sm mb-3">
                             <div class="card-header bg-primary text-white">
-                                <h5 class="mb-0">Question <?php echo $index + 1; ?></h5>
+                                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Question <?php echo $index + 1; ?></h5>
                             </div>
                             <div class="card-body">
                                 <p class="fw-bold mb-3"><?php echo htmlspecialchars($question['question_text']); ?></p>
@@ -170,17 +179,15 @@ $conn->close();
                                 <a href="update_question.php?quiz_id=<?php echo $quiz_id; ?>&question_id=<?php echo $question['question_id']; ?>" class="btn btn-sm btn-success me-2">
                                     <i class="fas fa-edit"></i> Update
                                 </a>
-                                <?php if ($_SESSION['user_id'] == 1): ?>
-                                    <a href="view_questions.php?quiz_id=<?php echo $quiz_id; ?>&delete_id=<?php echo $question['question_id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this question?');">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </a>
-                                <?php endif; ?>
+                                <a href="view_questions.php?quiz_id=<?php echo $quiz_id; ?>&delete_id=<?php echo $question['question_id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this question?');">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <div class="mt-3">
-                    <a href="add_question.php?quiz_id=<?php echo $quiz_id; ?>" class="btn btn-outline-dark">
+                    <a href="add_question.php?quiz_id=<?php echo $quiz_id; ?>" class="btn btn-secondary">
                         <i class="fas fa-arrow-left me-2"></i>Back to Add Question
                     </a>
                 </div>
