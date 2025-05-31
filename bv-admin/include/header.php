@@ -5,8 +5,7 @@
 
     <div class="dropdown">
         <div class="d-flex align-items-center" data-bs-toggle="dropdown" style="cursor: pointer;">
-            <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile" class="rounded-circle me-2"
-                style="width: 50px;">
+            <img src="<?php echo !empty($profile_picture) ? htmlspecialchars($profile_picture) : 'img/default-profile.png'; ?>" alt="Profile" class="rounded-circle me-2" style="width: 50px;">
         </div>
         <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="admin_profile.php"><i class="fas fa-user me-2"></i> Profile</a></li>
