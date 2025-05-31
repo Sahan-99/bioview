@@ -60,7 +60,7 @@
                                 <td><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                                 <td>
-                                    <img src="<?php echo htmlspecialchars($row['profile_picture'] ?: 'https://via.placeholder.com/50'); ?>" alt="Profile Picture">
+                                    <img src="<?php echo htmlspecialchars($row['profile_picture'] ?: 'img/default-profile.png'); ?>" alt="Profile Picture">
                                 </td>
                                 <td>
                                     <a href="view_admin_profile.php?id=<?php echo $row['user_id']; ?>" class="btn btn-sm btn-primary me-2">

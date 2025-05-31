@@ -18,17 +18,21 @@ if (isset($_GET['id']) && $_SESSION['user_id'] != 1) {
 $user_id = isset($_GET['id']) ? (int)$_GET['id'] : $_SESSION['user_id'];
 
 // Fetch admin profile data
-$stmt = $conn->prepare("SELECT email, first_name, last_name, profile_picture FROM users WHERE user_id = ? AND type = 'admin'");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $admin = $result->fetch_assoc();
+$stmt = $conn->prepare("SELECT email, first_name, last_name, profile_picture, type FROM users WHERE user_id = ? AND type = 'admin'");
+if ($stmt === false) {
+    $error = "Database error: " . $conn->error;
 } else {
-    $error = "Admin profile not found.";
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $admin = $result->fetch_assoc();
+    } else {
+        $error = "Admin profile not found.";
+    }
+    $stmt->close();
 }
-$stmt->close();
 $conn->close();
 ?>
 
@@ -45,6 +49,69 @@ $conn->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-card {
+            max-width: 600px;
+            margin: 0 auto;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .profile-header {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.9), rgba(80, 227, 194, 0.9));
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            text-align: center;
+            color: #fff;
+            border-bottom: 2px solid rgb(202, 202, 202);
+        }
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: -75px;
+            background-color: #e9ecef;
+        }
+        .profile-body {
+            padding: 2rem;
+        }
+        .profile-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .profile-detail:last-child {
+            border-bottom: none;
+        }
+        .profile-label {
+            font-weight: 600;
+            color:rgba(74, 144, 226, 0.9);
+            flex: 0 0 30%;
+        }
+        .profile-value {
+            color: #212529;
+            flex: 0 0 70%;
+            text-align: right;
+        }
+        @media (max-width: 576px) {
+            .profile-detail {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .profile-label, .profile-value {
+                flex: 0 0 100%;
+                text-align: left;
+            }
+            .profile-value {
+                margin-top: 0.25rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Include Sidebar -->
@@ -60,7 +127,7 @@ $conn->close();
 
         <div class="header mb-4">
             <h2>Admin Profile</h2>
-            <div>View and manage admin profile details.</div>
+            <div>View and manage admin profile.</div>
         </div>
 
         <!-- Messages -->
@@ -74,40 +141,32 @@ $conn->close();
         <!-- Profile Card -->
         <?php if (isset($admin)): ?>
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="card shadow-sm">
-                            <div class="card-header bg-primary text-white">
-                                <h5 class="mb-0"><i class="fas fa-user me-2"></i>Admin Profile</h5>
-                            </div>
-                            <div class="card-body">
-                                <?php if ($admin['profile_picture']): ?>
-                                    <div class="text-center mb-4">
-                                        <img src="<?php echo htmlspecialchars($admin['profile_picture']); ?>" alt="Profile Picture" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
-                                    </div>
-                                <?php endif; ?>
-                                <div class="row mb-3">
-                                    <div class="col-md-3 fw-bold">Username:</div>
-                                    <div class="col-md-9"><?php echo htmlspecialchars($admin['username']); ?></div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-3 fw-bold">Email:</div>
-                                    <div class="col-md-9"><?php echo htmlspecialchars($admin['email']); ?></div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-3 fw-bold">First Name:</div>
-                                    <div class="col-md-9"><?php echo htmlspecialchars($admin['first_name'] ?: 'Not set'); ?></div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-3 fw-bold">Last Name:</div>
-                                    <div class="col-md-9"><?php echo htmlspecialchars($admin['last_name'] ?: 'Not set'); ?></div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-3 fw-bold">Joined:</div>
-                                    <div class="col-md-9"><?php echo date('F j, Y', strtotime($admin['created_at'])); ?></div>
-                                </div>
-                            </div>
-                            
+                <div class="profile-card card shadow-sm">
+                    <div class="profile-header">
+                        <div style="height: 75px;"></div> <!-- Spacer for profile picture overlap -->
+                        <img src="<?php echo $admin['profile_picture'] ? htmlspecialchars($admin['profile_picture']) : 'img/default-profile.png'; ?>" alt="Profile Picture" class="profile-picture">
+                        <h4 class="mt-3"><?php echo htmlspecialchars($admin['first_name'] . ' ' . $admin['last_name']); ?></h4>
+                        <p class="text-muted"><?php echo htmlspecialchars($admin['type']); ?></p>
+                    </div>
+                    <div class="profile-body">
+                        <div class="profile-detail">
+                            <span class="profile-label">Email</span>
+                            <span class="profile-value"><?php echo htmlspecialchars($admin['email']); ?></span>
+                        </div>
+                        <div class="profile-detail">
+                            <span class="profile-label">First Name</span>
+                            <span class="profile-value"><?php echo htmlspecialchars($admin['first_name'] ?: 'Not set'); ?></span>
+                        </div>
+                        <div class="profile-detail">
+                            <span class="profile-label">Last Name</span>
+                            <span class="profile-value"><?php echo htmlspecialchars($admin['last_name'] ?: 'Not set'); ?></span>
+                        </div>
+                        <div class="profile-detail">
+                            <span class="profile-label"></i>Type</span>
+                            <span class="profile-value"><?php echo htmlspecialchars($admin['type']); ?></span>
+                        </div>
+                        <div class="actions mt-4 d-flex justify-content-center gap-3">
+                            <a href="mailto:<?php echo htmlspecialchars($admin['email']); ?>" class="btn btn-outline-primary"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
