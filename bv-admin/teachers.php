@@ -1,15 +1,15 @@
 <?php
-    session_start();
-    include 'dbconnect.php';
+session_start();
+include 'dbconnect.php';
 
-    // Check if admin is logged in
-    include 'include/check_admin.php';
+// Check if admin is logged in
+include 'include/check_admin.php';
 
-    // Fetch all users
-    $query = "SELECT user_id, first_name, last_name, email FROM users WHERE type='teachers'";
-    $result = $conn->query($query);
-    $conn->close();
-    ?>
+// Fetch all teachers
+$query = "SELECT user_id, first_name, last_name, email, profile_picture FROM users WHERE type='teacher'";
+$result = $conn->query($query);
+$conn->close();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,15 +24,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    
+    <style>
+        .table-container {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+    </style>
+    <?php $page = 'teachers'; ?>
 </head>
 <body>
-
     <!-- Include Sidebar -->
-    <?php
-    $page = 'teachers'; 
-    include 'include/sidebar.php';
-    ?>
+    <?php include 'include/sidebar.php'; ?>
 
     <!-- Main Content -->
     <div class="main-content" id="main-content">
@@ -44,13 +59,15 @@
             <div>List of all teachers in the system.</div>
         </div>
 
-        <!-- User List Table -->
+        <!-- Teacher List Table -->
         <div class="table-container">
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Full Name</th>
                         <th>Email</th>
+                        <th>Profile Picture</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,11 +76,19 @@
                             <tr>
                                 <td><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['email']); ?></td>
+                                <td>
+                                    <img src="<?php echo htmlspecialchars($row['profile_picture'] ?: 'img/default-profile.jpg'); ?>" alt="Profile Picture">
+                                </td>
+                                <td>
+                                    <a href="view_teacher_profile.php?id=<?php echo $row['user_id']; ?>" class="btn btn-sm btn-primary me-2">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                </td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="3" class="text-center">No teachers found.</td>
+                            <td colspan="4" class="text-center">No teachers found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
